@@ -43,7 +43,15 @@ class CircleOfLife:
             x, y = 0, 0
             animal.breed(x,y)
 
-# def run(self, num_timesteps):
+def run(self, num_timesteps=100):
+    self.display()
+    for _ in range(num_timesteps):
+        self.timestep += 1
+        self.step_move()
+        self.display()
+        self.step_breed()
+        self.display()
+
 
 
 
@@ -52,3 +60,4 @@ if __name__ == '__main__':
     safari.display()
     safari.step_move()
     safari.step_breed()
+    safari.run(2)
