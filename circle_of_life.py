@@ -6,27 +6,48 @@ def print_TODO(todo):
 
 class CircleOfLife:
     def __init__(self, world_size, num_zebras, num_lions):
-        self.grid = [[' ' for _ in range(world_size)]
-                          for _ in range(world_size)]
-        print_TODO('get random empty coordinates')
-        self.zebras = [Animal(0,0) for _ in range(num_zebras)]
-        self.lions = [Animal(0,0) for _ in range(num_lions)]
+
+        #self.zebras = [Animal(0,0) for _ in range(num_zebras)]
+        #self.lions = [Animal(0,0) for _ in range(num_lions)]
         self.timestep = 0
         print("welcome to AIE safari")
-        print(f'\tworld size = {world_size}')
-        print(f'\tnum zebras = {num_zebras}')
-        print(f'\tnum lions = {num_lions}')
+        print(f'\nworld size = {world_size}')
+        print(f'\nnum zebras = {num_zebras}')
+        print(f'\nnum lions = {num_lions}')
+        print(f'\n')
+
+        cols = world_size
+        cell_size = 10
+        self.grid = []
+        # arma 5 listas blancas
+        for row in range(cols):
+            self.grid.append([])
+            # en las que en cada lista tienen 5 espacios blancos de tamano 3.
+            for _ in range(cols):
+                #se puede entender como grid[row], como la parte row, lista 1,2,3,y asi
+                self.grid[row].append(" " * cell_size)
+        
+        #para el 1234 de arriba
+        coordenates = [f'{coord+1}' for coord in range(len(self.grid))]
+        print(((int(cell_size/2))*' ') + (cell_size*' ').join(coordenates))
+        # por la cantidad de cuadros por - te da cierta cantidad pero es insuficiente. Lo llenas con '--'
+        print("-" * ((cell_size + 1) * world_size - 1) + '--')
+        for row in self.grid:
+            print("|" + "|".join(row) + "|")
+            print("-" * ((cell_size + 1) * world_size - 1) + '--')
+       
+        #print(grid)
 
     def display(self):
-        print(f'Clock: {self.timestep}')
-        top_coord_str = '\t'.join([f'{coord}' for coord in range(len(self.grid))])
-        print(top_coord_str)
+        print(f'time step: {self.timestep}')
         for animal in self.zebras:
             self.grid[animal.y][animal.x] = 'Z'
         for animal in self.lions:
             self.grid[animal.y][animal.x] = 'L'
         for line in self.grid:
             print(line)
+
+
         key = input('press [q] to quit')
         if key == 'q':
             exit()
@@ -60,13 +81,9 @@ class CircleOfLife:
             self.step_breed()
             self.display()
 
-
-
-
-
 if __name__ == '__main__':
     safari = CircleOfLife(5, 5, 2)
-    # safari.display()
+    safari.display()
     # safari.step_move()
     # safari.step_breed()
-    safari.run(2)
+    #safari.run(2)
