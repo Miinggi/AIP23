@@ -12,3 +12,6 @@ class Animal:
         return Animal(x, y)
     
     print('animals')
+
+#class Zebra(Animal):
+    #def __init__(self, )
