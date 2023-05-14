@@ -10,8 +10,3 @@ class Animal:
 
     def breed(self, x, y):
         return Animal(x, y)
-    
-    print('animals')
-
-#class Zebra(Animal):
-    #def __init__(self, )
