@@ -9,7 +9,7 @@ class CircleOfLife:
     def __init__(self, world_size, num_zebras, num_lions):
 
         self.zebras = [Animal(0,0) for _ in range(num_zebras)]
-        self.lions = [Animal(2,2) for _ in range(num_lions)]
+        self.lions = [Animal(0,0) for _ in range(num_lions)]
         self.timestep = 0
         self.world = world_size
         print(f'\n')
@@ -23,24 +23,30 @@ class CircleOfLife:
         
         cell_size = 10
         self.grid = []
+        
         # arma 5 listas blancas
-
         for row in range(self.world):
             self.grid.append([])
             # en las que en cada lista tienen 5 espacios blancos de tamano 3.
             for col in range(self.world):
                 #se puede entender como grid[row], como la parte row, lista 1,2,3,y asi
+                is_empty = True
                 for animal in self.zebras:
                     if animal.x == row and animal.y == col:
                         self.grid[row].append((" " *(int(cell_size/2)-1)) + "Z" + (" " *int(cell_size/2)))
+                        is_empty = False
                         break
 
+                if is_empty:
                     for animal in self.lions:
                         if animal.x == row and animal.y == col:
                             self.grid[row].append((" " *(int(cell_size/2)-1)) + "L" + (" " *int(cell_size/2)))
+                            is_empty = False
                             break
-                    else:
-                        self.grid[row].append(" " * cell_size)
+
+                if is_empty:
+                    self.grid[row].append(" " * cell_size)
+                
 
         #para el 1234 de arriba
         coordenates = [f'{coord+1}' for coord in range(len(self.grid))]
@@ -94,7 +100,7 @@ class CircleOfLife:
             self.display()
 
 if __name__ == '__main__':
-    safari = CircleOfLife(5, 1, 1)
+    safari = CircleOfLife(5, 3, 3)
     safari.display()
     # safari.step_move()
     # safari.step_breed()
