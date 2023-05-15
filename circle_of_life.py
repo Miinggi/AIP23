@@ -32,12 +32,12 @@ class CircleOfLife:
                 #se puede entender como grid[row], como la parte row, lista 1,2,3,y asi
                 for animal in self.zebras:
                     if animal.x == row and animal.y == col:
-                        self.grid[row].append((" " *(int(cell_size/2)-1)) + "Z" + (" " *int(cell_size/2)))
+                        self.grid[row].append((" " *(int(cell_size/2)-1)) + "L" + (" " *int(cell_size/2)))
                         break
 
                     for animal in self.lions:
                         if animal.x == row and animal.y == col:
-                            self.grid[row].append((" " *(int(cell_size/2)-1)) + "L" + (" " *int(cell_size/2)))
+                            self.grid[row].append((" " *(int(cell_size/2)-1)) + "Z" + (" " *int(cell_size/2)))
                             break
                     else:
                         self.grid[row].append(" " * cell_size)
