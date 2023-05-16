@@ -1,3 +1,5 @@
+import random
+
 class Animal:
     def __init__(self, x, y):
         self.x = x
@@ -10,3 +12,42 @@ class Animal:
 
     def breed(self, x, y):
         return Animal(x, y)
+    
+    def get_neighbors(self, grid, target):
+
+        world_width = len(grid)
+        world_height = len(grid[0])
+        x, y = self.x, self.y
+        neighbors = []
+        neighbors.append([x-1, y])
+        neighbors.append([x+1, y])
+        neighbors.append([x, y-1])
+        neighbors.append([x, y+1])
+        neighbors_valid = [neighbor for neighbor in neighbors
+                           if grid[neighbor[1]] [neighbor[0]] == target
+                           and neighbor[0] >= 0
+                           and neighbor[0] < world_width
+                           and neighbor[1] >= 0
+                           and neighbor[1] < world_height]
+        return neighbors_valid
+
+class Zebra(Animal):
+
+    def move(self, grid):
+        cell_size = 10
+        neighbors = self.get_neighbors(grid, target=(" " * cell_size))
+        chosen_neighbor = random.choice(neighbors)
+        self.x, self.y =chosen_neighbor
+
+class Lion(Animal):
+    
+    def move(self, grid):
+        cell_size = 10
+        neighbors = self.get_neighbors(grid, target=(" " *(int(cell_size/2)-1)) + "Z" + (" " *int(cell_size/2)))
+        if len(neighbors) > 0:
+            chosen_neighbor = random.choice(neighbors)
+            self.x, self.y = chosen_neighbor
+            self.hp = 3
+            return
+        
+        neighbors = self.get_neighbors(grid, target=(" " * cell_size))

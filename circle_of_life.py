@@ -1,5 +1,6 @@
-from animal import Animal
+from animal import Animal, Zebra, Lion
 import os
+import random
 
 def print_TODO(todo):
     print(f'<<<NOT IMPLEMENTED: {todo}>>>')
@@ -7,23 +8,23 @@ def print_TODO(todo):
 class CircleOfLife:
 
     def __init__(self, world_size, num_zebras, num_lions):
-
-        self.zebras = [Animal(0,0) for _ in range(num_zebras)]
-        self.lions = [Animal(0,0) for _ in range(num_lions)]
+        
         self.timestep = 0
         self.world = world_size
+        self.zebras = [Zebra(0, 0) for _ in range(num_zebras)]
+        self.lions = [Lion(1,1) for _ in range(num_lions)]
         print(f'\n')
         print("welcome to AIE safari")
         print(f'\nworld size = {world_size}')
         print(f'\nnum zebras = {num_zebras}')
         print(f'\nnum lions = {num_lions}')
         print(f'\n')
-
+    
     def display(self):
         
         cell_size = 10
         self.grid = []
-        
+
         # arma 5 listas blancas
         for row in range(self.world):
             self.grid.append([])
@@ -72,16 +73,10 @@ class CircleOfLife:
         print_TODO('step_move()')
 
         for zebra in self.zebras:
-            print_TODO('get empty neighbor')
-            direction = 'left'
-            zebra.move(direction)
+            zebra.move(self.grid)
 
         for lion in self.lions:
-            print_TODO('get empty neighbor')
-            print_TODO('move to zebra if found, else move to empty')
-            print_TODO('get empty neighbor')
-            direction = 'left'
-            lion.move(direction)
+            lion.move(self.grid)
 
     def step_breed(self):
         print_TODO('step_breed()')
@@ -100,8 +95,9 @@ class CircleOfLife:
             self.display()
 
 if __name__ == '__main__':
-    safari = CircleOfLife(5, 3, 3)
+
+    safari = CircleOfLife(5, 2, 2)
     safari.display()
     # safari.step_move()
     # safari.step_breed()
-    #safari.run(2)
+    safari.run(2)
