@@ -1,5 +1,4 @@
-from animal import Animal, Zebra, Lion
-import os
+from animal import Zebra, Lion  
 import random
 
 class CircleOfLife:
@@ -8,8 +7,23 @@ class CircleOfLife:
         
         self.timestep = 0
         self.world = world_size
-        self.zebras = [Zebra(0, 0) for _ in range(num_zebras)]
-        self.lions = [Lion(1,1) for _ in range(num_lions)]
+        self.zebras = []
+        self.lions = []
+
+        # Randomly spawn zebras
+        available_coordinates = [(x, y) for x in range(self.world) for y in range(self.world)]
+        random.shuffle(available_coordinates)
+        for _ in range(num_zebras):
+            x, y = available_coordinates.pop()
+            self.zebras.append(Zebra(x, y))
+
+        # Randomly spawn lions
+        available_coordinates = [(x, y) for x in range(self.world) for y in range(self.world)]
+        random.shuffle(available_coordinates)
+        for _ in range(num_lions):
+            x, y = available_coordinates.pop()
+            self.lions.append(Lion(x, y))
+
         print(f'\n')
         print("welcome to AIE safari")
         print(f'\nworld size = {world_size}')
@@ -19,17 +33,27 @@ class CircleOfLife:
     
     def display(self):
         
-        cell_size = 10
+        cell_size = 5
         self.update_grid()
         #para el 1234 de arriba
         coordenates = [f'{coord}' for coord in range(len(self.grid))]
-        print('   ' + ((int(cell_size/2))*' ') + (cell_size*' ').join(coordenates))
-        
-            # por la cantidad de cuadros por - te da cierta cantidad pero es insuficiente. Lo llenas con '--'
+        print(' ',end=' ')
+        for coord in coordenates:
+            if int(coord) < 10:
+                print('    ' + coord, end=' ')
+            else:
+                print('   ' + coord, end=' ')
+        print()
+
+        # por la cantidad de cuadros por - te da cierta cantidad pero es insuficiente. Lo llenas con '--'
         print('   ' + "-" * ((cell_size + 1) * self.world - 1) + '--')
         for row_idx, row in enumerate(self.grid):
-            print(f"{coordenates[row_idx]}  |" + "|".join(row) + "|")
-            print('   ' + "-" * ((cell_size + 1) * self.world - 1) + '--')
+            if row_idx < 10:
+                print(f"{coordenates[row_idx]}  |" + "|".join(row) + "|")
+                print('   ' + "-" * ((cell_size + 1) * self.world - 1) + '--')
+            else:
+                print(f"{coordenates[row_idx]} |" + "|".join(row) + "|")
+                print('   ' + "-" * ((cell_size + 1) * self.world - 1) + '--')
 
         print(f'time step: {self.timestep}')
 
@@ -42,7 +66,7 @@ class CircleOfLife:
 
     def update_grid(self):
 
-        cell_size = 10
+        cell_size = 5
         self.grid = []
         # arma 5 listas blancas
         for row in range(self.world):
@@ -53,14 +77,14 @@ class CircleOfLife:
                 is_empty = True
                 for animal in self.zebras:
                     if animal.x == row and animal.y == col:
-                        self.grid[row].append((" " *(int(cell_size/2)-1)) + "Z" + (" " *int(cell_size/2)))
+                        self.grid[row].append((" " *2) + "Z" + (" " *2))
                         is_empty = False
                         break
 
                 if is_empty:
                     for animal in self.lions:
                         if animal.x == row and animal.y == col:
-                            self.grid[row].append((" " *(int(cell_size/2)-1)) + "L" + (" " *int(cell_size/2)))
+                            self.grid[row].append((" " *2) + "L" + (" " *2))
                             is_empty = False
                             break
 
@@ -93,7 +117,7 @@ class CircleOfLife:
 
 if __name__ == '__main__':
 
-    safari = CircleOfLife(5, 1, 1)
+    safari = CircleOfLife(20, 10, 10)
     safari.display()
     # safari.step_move()
     # safari.step_breed()
