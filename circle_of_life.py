@@ -104,5 +104,5 @@ if __name__ == '__main__':
     # safari.display()
     # safari.step_move()
     # safari.step_breed()
-    # some edit
+    #test test test test
     safari.run(2)
