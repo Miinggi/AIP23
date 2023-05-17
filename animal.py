@@ -1,6 +1,7 @@
 import random
 
 class Animal:
+    
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -10,7 +11,7 @@ class Animal:
         neighbors = self.get_neighbors(grid, target)
         if len(neighbors) > 0:
             chosen_neighbor = random.choice(neighbors)
-            self.y, self.x = chosen_neighbor
+            self.x, self.y = chosen_neighbor
             print(me, 'moved to:', chosen_neighbor)
             return True
         else:
@@ -23,22 +24,24 @@ class Animal:
         
         #para la cantidad de rows
         world_width = len(grid)
+        #print(len(grid))
         #para la cantidad de columns
-        #print(grid[1])
         world_height = len(grid[0])
+        #print(grid[1])
         x, y = self.x, self.y
         neighbors = []
         neighbors.append([x-1, y])
         neighbors.append([x+1, y])
         neighbors.append([x, y-1])
         neighbors.append([x, y+1])
+        print(neighbors)
         neighbors_valid = [neighbor for neighbor in neighbors
-                           if grid[neighbor[1]] [neighbor[0]] == target
-                           and neighbor[0] >= 0
+                           if  neighbor[0] >= 0
                            and neighbor[0] < world_width
                            and neighbor[1] >= 0
-                           and neighbor[1] < world_height]
-        print(neighbors)
+                           and neighbor[1] < world_height
+                           and grid[neighbor[0]] [neighbor[1]] == target]
+        print(neighbors_valid)
         return neighbors_valid
 
 class Zebra(Animal):

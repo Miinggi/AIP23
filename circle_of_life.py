@@ -76,14 +76,13 @@ class CircleOfLife:
                 #se puede entender como grid[row], como la parte row, lista 1,2,3,y asi
                 is_empty = True
                 for animal in self.zebras:
-                    if animal.x == row and animal.y == col:
+                    if animal.x == col and animal.y == row:
                         self.grid[row].append((" " *2) + "Z" + (" " *2))
                         is_empty = False
                         break
-
-                if is_empty:
+                    
                     for animal in self.lions:
-                        if animal.x == row and animal.y == col:
+                        if animal.x == col and animal.y == row:
                             self.grid[row].append((" " *2) + "L" + (" " *2))
                             is_empty = False
                             break
@@ -117,7 +116,7 @@ class CircleOfLife:
 
 if __name__ == '__main__':
 
-    safari = CircleOfLife(20, 10, 10)
+    safari = CircleOfLife(5, 1, 1)
     safari.display()
     # safari.step_move()
     # safari.step_breed()
