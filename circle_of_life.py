@@ -19,12 +19,15 @@ class CircleOfLife:
         print(f'\nnum zebras = {num_zebras}')
         print(f'\nnum lions = {num_lions}')
         print(f'\n')
+
+    def reset_grid(self):
+        self.grid = []
     
     def display(self):
         
         cell_size = 10
         self.grid = []
-
+        self.reset_grid()
         # arma 5 listas blancas
         for row in range(self.world):
             self.grid.append([])
@@ -64,9 +67,9 @@ class CircleOfLife:
         #for line in self.grid:
             #print(line)
 
-        #key = input('press [q] to quit')
-        #if key == 'q':
-            #exit()
+        key = input('press [q] to quit')
+        if key == 'q':
+            exit()
 
     def step_move(self):
 
@@ -100,4 +103,4 @@ if __name__ == '__main__':
     safari.display()
     # safari.step_move()
     # safari.step_breed()
-    safari.run(2)
+    safari.run(100)
