@@ -58,7 +58,7 @@ def run(self, num_timesteps=100):
 
 if __name__ == '__main__':
     safari = CircleOfLife(5, 5, 2)
-    safari.display()
-    safari.step_move()
-    safari.step_breed()
+    # safari.display()
+    # safari.step_move()
+    # safari.step_breed()
     safari.run(2)
