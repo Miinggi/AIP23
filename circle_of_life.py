@@ -2,9 +2,6 @@ from animal import Animal, Zebra, Lion
 import os
 import random
 
-def print_TODO(todo):
-    print(f'<<<NOT IMPLEMENTED: {todo}>>>')
-
 class CircleOfLife:
 
     def __init__(self, world_size, num_zebras, num_lions):
@@ -24,7 +21,6 @@ class CircleOfLife:
         self.grid = []
     
     def display(self):
-        
         cell_size = 10
         self.grid = []
         self.reset_grid()
@@ -72,8 +68,6 @@ class CircleOfLife:
             exit()
 
     def step_move(self):
-
-        print_TODO('step_move()')
 
         for zebra in self.zebras:
             zebra.move(self.grid)

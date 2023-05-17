@@ -51,3 +51,5 @@ class Lion(Animal):
             return
         
         neighbors = self.get_neighbors(grid, target=(" " * cell_size))
+
+
