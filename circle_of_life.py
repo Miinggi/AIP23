@@ -116,7 +116,7 @@ class CircleOfLife:
 
 if __name__ == '__main__':
 
-    safari = CircleOfLife(5, 1, 1)
+    safari = CircleOfLife(20, 10, 10)
     safari.display()
     # safari.step_move()
     # safari.step_breed()

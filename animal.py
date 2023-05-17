@@ -52,7 +52,7 @@ class Zebra(Animal):
 class Lion(Animal):
     def move(self, grid):
         cell_size = 5
-        hunt_is_successful = self.move_to(grid, target=(" " * (int(cell_size/2)-1)) + "Z" + (" " * int(cell_size/2)), me='Lion')
+        hunt_is_successful = self.move_to(grid, target=(" " *2) + "Z" + (" " *2), me='Lion')
         if hunt_is_successful:
             self.hp = 3
         else:
