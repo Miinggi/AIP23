@@ -16,14 +16,34 @@ class CircleOfLife:
         print(f'\nnum zebras = {num_zebras}')
         print(f'\nnum lions = {num_lions}')
         print(f'\n')
-
-    def reset_grid(self):
-        self.grid = []
     
     def display(self):
+        
+        cell_size = 10
+        self.update_grid()
+        #para el 1234 de arriba
+        coordenates = [f'{coord}' for coord in range(len(self.grid))]
+        print('   ' + ((int(cell_size/2))*' ') + (cell_size*' ').join(coordenates))
+        
+            # por la cantidad de cuadros por - te da cierta cantidad pero es insuficiente. Lo llenas con '--'
+        print('   ' + "-" * ((cell_size + 1) * self.world - 1) + '--')
+        for row_idx, row in enumerate(self.grid):
+            print(f"{coordenates[row_idx]}  |" + "|".join(row) + "|")
+            print('   ' + "-" * ((cell_size + 1) * self.world - 1) + '--')
+
+        print(f'time step: {self.timestep}')
+
+        #for line in self.grid:
+            #print(line)
+
+        key = input('press [q] to quit')
+        if key == 'q':
+            exit()
+
+    def update_grid(self):
+
         cell_size = 10
         self.grid = []
-        self.reset_grid()
         # arma 5 listas blancas
         for row in range(self.world):
             self.grid.append([])
@@ -46,39 +66,19 @@ class CircleOfLife:
 
                 if is_empty:
                     self.grid[row].append(" " * cell_size)
-                
-
-        #para el 1234 de arriba
-        coordenates = [f'{coord+1}' for coord in range(len(self.grid))]
-        print('   ' + ((int(cell_size/2))*' ') + (cell_size*' ').join(coordenates))
-        
-        # por la cantidad de cuadros por - te da cierta cantidad pero es insuficiente. Lo llenas con '--'
-        print('   ' + "-" * ((cell_size + 1) * self.world - 1) + '--')
-        for row_idx, row in enumerate(self.grid):
-            print(f"{coordenates[row_idx]}  |" + "|".join(row) + "|")
-            print('   ' + "-" * ((cell_size + 1) * self.world - 1) + '--')
-
-        print(f'time step: {self.timestep}')
-
-        #for line in self.grid:
-            #print(line)
-
-        key = input('press [q] to quit')
-        if key == 'q':
-            exit()
 
     def step_move(self):
 
         for zebra in self.zebras:
             zebra.move(self.grid)
+            self.update_grid()
 
         for lion in self.lions:
             lion.move(self.grid)
+            self.update_grid()
 
     def step_breed(self):
-        print_TODO('step_breed()')
         for animal in self.zebras + self.lions:
-            print_TODO('get empty neighbor')
             x, y = 0, 0
             animal.breed(x,y)
 
@@ -88,12 +88,12 @@ class CircleOfLife:
             self.timestep += 1
             self.step_move()
             self.display()
-            self.step_breed()
-            self.display()
+            #self.step_breed()
+            #self.display()
 
 if __name__ == '__main__':
 
-    safari = CircleOfLife(5, 2, 2)
+    safari = CircleOfLife(5, 1, 1)
     safari.display()
     # safari.step_move()
     # safari.step_breed()

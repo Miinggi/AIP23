@@ -6,16 +6,25 @@ class Animal:
         self.y = y
         self.age = 0
     
-    def move(self, direction='right'):
-        print(f'moving to {direction}. <<< NOT IMPLEMETED YET>>>')
-        self.x += 1
+    def move_to(self, grid, target, me):
+        neighbors = self.get_neighbors(grid, target)
+        if len(neighbors) > 0:
+            chosen_neighbor = random.choice(neighbors)
+            self.y, self.x = chosen_neighbor
+            print(me, 'moved to:', chosen_neighbor)
+            return True
+        else:
+            return False
 
     def breed(self, x, y):
         return Animal(x, y)
     
     def get_neighbors(self, grid, target):
-
+        
+        #para la cantidad de rows
         world_width = len(grid)
+        #para la cantidad de columns
+        #print(grid[1])
         world_height = len(grid[0])
         x, y = self.x, self.y
         neighbors = []
@@ -29,27 +38,19 @@ class Animal:
                            and neighbor[0] < world_width
                            and neighbor[1] >= 0
                            and neighbor[1] < world_height]
+        print(neighbors)
         return neighbors_valid
 
 class Zebra(Animal):
-
     def move(self, grid):
         cell_size = 10
-        neighbors = self.get_neighbors(grid, target=(" " * cell_size))
-        chosen_neighbor = random.choice(neighbors)
-        self.x, self.y =chosen_neighbor
+        self.move_to(grid, target=(" " * cell_size), me='Zebra')
 
 class Lion(Animal):
-    
     def move(self, grid):
         cell_size = 10
-        neighbors = self.get_neighbors(grid, target=(" " *(int(cell_size/2)-1)) + "Z" + (" " *int(cell_size/2)))
-        if len(neighbors) > 0:
-            chosen_neighbor = random.choice(neighbors)
-            self.x, self.y = chosen_neighbor
+        hunt_is_successful = self.move_to(grid, target=(" " * (int(cell_size/2)-1)) + "Z" + (" " * int(cell_size/2)), me='Lion')
+        if hunt_is_successful:
             self.hp = 3
-            return
-        
-        neighbors = self.get_neighbors(grid, target=(" " * cell_size))
-
-
+        else:
+            self.move_to(grid, target=(" " * cell_size), me='Lion')
