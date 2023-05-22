@@ -19,3 +19,6 @@ porque hace tanta diferencia??
 if animal.x == col and animal.y == row:
 
 porque tuve que cambiar para que las coordenadas estuvieran correctas?
+
+
+pueden estar en el mismo cell.

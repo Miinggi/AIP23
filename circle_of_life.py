@@ -1,4 +1,4 @@
-from animal import Zebra, Lion  
+from animal import Empty, Zebra, Lion  
 import random
 
 class CircleOfLife:
@@ -33,8 +33,8 @@ class CircleOfLife:
     
     def display(self):
         
-        cell_size = 5
         self.update_grid()
+        cell_size = 5
         #para el 1234 de arriba
         coordenates = [f'{coord}' for coord in range(len(self.grid))]
         print(' ',end=' ')
@@ -48,11 +48,12 @@ class CircleOfLife:
         # por la cantidad de cuadros por - te da cierta cantidad pero es insuficiente. Lo llenas con '--'
         print('   ' + "-" * ((cell_size + 1) * self.world - 1) + '--')
         for row_idx, row in enumerate(self.grid):
+            buffer = [str(animal) for animal in row]
             if row_idx < 10:
-                print(f"{coordenates[row_idx]}  |" + "|".join(row) + "|")
+                print(f"{coordenates[row_idx]}  |" + "|".join(buffer) + "|")
                 print('   ' + "-" * ((cell_size + 1) * self.world - 1) + '--')
             else:
-                print(f"{coordenates[row_idx]} |" + "|".join(row) + "|")
+                print(f"{coordenates[row_idx]} |" + "|".join(buffer) + "|")
                 print('   ' + "-" * ((cell_size + 1) * self.world - 1) + '--')
 
         print(f'time step: {self.timestep}')
@@ -66,7 +67,6 @@ class CircleOfLife:
 
     def update_grid(self):
 
-        cell_size = 5
         self.grid = []
         # arma 5 listas blancas
         for row in range(self.world):
@@ -74,32 +74,21 @@ class CircleOfLife:
             # en las que en cada lista tienen 5 espacios blancos de tamano 3.
             for col in range(self.world):
                 #se puede entender como grid[row], como la parte row, lista 1,2,3,y asi
-                is_empty = True
-                for animal in self.zebras:
-                    if animal.x == col and animal.y == row:
-                        self.grid[row].append((" " *2) + "Z" + (" " *2))
-                        is_empty = False
-                        break
-                    
-                    for animal in self.lions:
-                        if animal.x == col and animal.y == row:
-                            self.grid[row].append((" " *2) + "L" + (" " *2))
-                            is_empty = False
-                            break
-
-                if is_empty:
-                    self.grid[row].append(" " * cell_size)
+                if any(animal.x == col and animal.y == row for animal in self.zebras):
+                    self.grid[row].append(Zebra(col, row))
+                elif any(animal.x == col and animal.y == row for animal in self.lions):
+                    self.grid[row].append(Lion(col, row))
+                else:
+                    self.grid[row].append(Empty(col, row))
 
     def step_move(self):
 
-        for zebra in self.zebras:
-            zebra.move(self.grid)
-            self.update_grid()
-
-        for lion in self.lions:
-            lion.move(self.grid)
-            self.update_grid()
-
+        animals = [animal for row in self.grid for animal in row
+                   if not isinstance(animal, Empty)]
+        for animal in animals:
+            if animal.hp != 0:
+                animal.move(self.grid)
+                
     def step_breed(self):
         for animal in self.zebras + self.lions:
             x, y = 0, 0
@@ -116,7 +105,7 @@ class CircleOfLife:
 
 if __name__ == '__main__':
 
-    safari = CircleOfLife(20, 10, 10)
+    safari = CircleOfLife(20, 20, 20)
     safari.display()
     # safari.step_move()
     # safari.step_breed()
