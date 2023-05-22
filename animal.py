@@ -39,6 +39,8 @@ class Animal:
 
         return neighbors_valid
     
+    def health(self, )
+
     def breed(self, x, y):
         return Animal(x, y)
 
@@ -48,15 +50,15 @@ class Empty(Animal):
         return (" " * cell_size)
 
 class Zebra(Animal):
-
-    self.hp = 1
     
     def __str__(self):
         return ((" " *2) + "Z" + (" " *2))
 
     def move(self, grid):
         cell_size = 5
+        self.hp = 1
         self.move_to(grid, target=(" " * cell_size), me='Zebra')
+
 
 class Lion(Animal):
 
@@ -65,6 +67,7 @@ class Lion(Animal):
     
     def move(self, grid):
         cell_size = 5
+        self.hp = 3
         hunt_is_successful = self.move_to(grid, target=((" " *2) + "Z" + (" " *2)), me='Lion')
         if hunt_is_successful:
             self.hp = 3
