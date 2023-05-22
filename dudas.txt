@@ -1,0 +1,21 @@
+        neighbors_valid = [neighbor for neighbor in neighbors
+                           if  neighbor[0] >= 0
+                           and neighbor[0] < world_width
+                           and neighbor[1] >= 0
+                           and neighbor[1] < world_height
+                           and grid[neighbor[0]] [neighbor[1]] == target]
+
+        neighbors_valid = [neighbor for neighbor in neighbors
+                           if grid[neighbor[0]] [neighbor[1]] == target
+                           and neighbor[0] >= 0
+                           and neighbor[0] < world_width
+                           and neighbor[1] >= 0
+                           and neighbor[1] < world_height]
+
+porque hace tanta diferencia??
+
+
+
+if animal.x == col and animal.y == row:
+
+porque tuve que cambiar para que las coordenadas estuvieran correctas?
