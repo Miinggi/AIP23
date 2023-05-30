@@ -127,11 +127,11 @@ if __name__ == '__main__':
 
 #current problems:
 #Lions can breed with zebras
-#Empty cells somehow contain ghost animals
+#Empty cells somehow contain ghost animals(maybe not me stupid)
 #Zebras always win instead of balance(maybe lions need bias?)
 #though lions eat they start to death next time step
 #animals are moving more than one cell in one time step
-#incorrect moved to coordinates
+#incorrect moved to coordinates(maybe not me stupid)
 #zebra random death
 #moved from to false positives
 #zebra death isn't real
