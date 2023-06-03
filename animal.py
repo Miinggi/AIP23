@@ -11,7 +11,7 @@ class Animal:
     def move_to(self, grid, target, me):
         neighbors = self.get_neighbors(grid, target)
         if len(neighbors) > 0:
-            buffer = f'{me}, moved from: {self.x}, {self.y}'
+            buffer = f'{me}, moved from: {self.y}, {self.x}'
             grid[self.x][self.y] = Empty(self.x, self.y) #empty animals location
             chosen_neighbor = random.choice(neighbors) #choose a random neighboring coordinate
             self.x, self.y = chosen_neighbor #assign new coordinates to self.x,y for the animal
@@ -44,9 +44,9 @@ class Animal:
     
     def breed(self, grid):
         cell_size = 5
-        child = self.__class__(self.y, self.x) # create new animal(instance) with the same coordinates as the parent
+        child = self.__class__(self.x, self.y) # create new animal(instance) with the same coordinates as the parent
         child.move_to(grid, target=(" " * cell_size), me=self)  # move the child to an empty cell
-        grid[self.y][self.x] = self
+        grid[self.x][self.y] = self
 
 class Empty(Animal): # empty cell class
     def __str__(self):
