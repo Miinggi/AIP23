@@ -121,7 +121,7 @@ class CircleOfLife:
 if __name__ == '__main__':
     zebra = Zebra(0,0)
     lion = Lion(0,0)
-    safari = CircleOfLife(10, 10, 10)
+    safari = CircleOfLife(5, 5, 5)
     safari.run(100)
 
 
